@@ -4,6 +4,7 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyOriginatorKeyFile>SurvivalNotRequired.snk</AssemblyOriginatorKeyFile>
     <Configurations>Debug;Release;ReleaseSigned;ReleaseSigned</Configurations>
+    <Version>0.9.0</Version>
   </PropertyGroup>
 
   <!-- C# compiler -->
