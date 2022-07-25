@@ -4,7 +4,7 @@
 
 ![Screenshot](https://raw.githubusercontent.com/sungaila/SurvivalNotRequired/master/etc/Screenshot_01.png)
 
-_Survival Not Required_ is a mod for the game [Oxygen Not Included](https://www.klei.com/games/oxygen-not-included) from Klei Entertainment. Its goal is to lower the difficulty for the first few day cycles and thus make the game more accessable for beginners.
+_Survival Not Required_ is a mod for the game [Oxygen Not Included](https://www.klei.com/games/oxygen-not-included) from Klei Entertainment. Its goal is to lower the difficulty for the first few day cycles and thus make the game more accessible for beginners.
 
 The mod is available in the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2840201171).
 
