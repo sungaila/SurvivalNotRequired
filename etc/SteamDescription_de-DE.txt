@@ -1,0 +1,20 @@
+[h1]Peppe deine Kolonie auf und überstehe Katastrophen einfacher[/h1]
+Ein kleiner Fehler kann deine gesamte Kolonie (scheinbar unwiederbringlich) verdammen – insbesonders für Anfänger!
+
+Diese Mod verbessert dein [b]Printing Pod[/b] und macht das Überleben der ersten Tageszyklen ein wenig einfacher.
+
+[h1]Oxygen Is Included[/h1]
+Dein [b]Printing Pod[/b] produziert [u]500g/s Sauerstoff[/u]. Dies hält ein paar Duplikaten vom Ersticken ab und hilft beim Wiederaufbau einer luftleeren Basis. Vorausgesetzt dein [b]Printing Pod[/b] und die Belüftung funktionieren.
+
+[h1]Kartoffel[strike]batterie[/strike]generator[/h1]
+Dein [b]Printing Pod[/b] generiert [u]400W[/u] für deinen Stromverbrauchsbedarf. Dies kann zwar keine vollständige Kolonie betreiben, aber es hilft als Notstromaggregat, sobald alles andere versagt.
+
+[h1]Neue [i]und noch optimistischere[/i] Hoffnung[/h1]
+Ein neues Spiel start mit einer Basis, einer Belüftung und einer netten Stehlampe. Beschädige das Belüftungssystem nicht bevor du [b]Ventilation[/b] erforscht hast ... es sei denn die Sauerstoffproduktion soll stoppen.
+
+[h1]Schlussbemerkungen[/h1]
+Ich hoffe diese Mod hilft neuen Spielern, indem es den Spielstart weniger überfordernd und bestrafend macht. Erfahrenere Spieler, welche sich nicht mit der Errichtung der Basisinfrastruktur hetzen und einen gemütlicheren Spielstart haben wollen, könnten diese Mod ebenfalls mögen.
+
+Bitte bedenke dass der [b]Mini-Pod[/b] keine der oben beschriebenen Verbesserungen erhält.
+
+Du hast Verbesserungsvorschläge oder möchtest den Quelltext dieser Mod sehen? Wirf einen Blick aufs [url=https://github.com/sungaila/SurvivalNotRequired]the GitHub repository[/url]!

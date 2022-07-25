@@ -1,0 +1,20 @@
+[h1]Kickstart your colony and recover from disasters more easily[/h1]
+One single mistake can doom your entire colony and make it seamingly unrecoverable – especially for beginners!
+
+This mod enhances your [b]Printing Pod[/b] and makes surviving the first day cycles a little bit easier.
+
+[h1]Oxygen Is Included[/h1]
+Your [b]Printing Pod[/b] produces [u]500g/s of oxygen[/u]. This prevents a few duplicates from suffocating and even helps to recover an unbreathable base. Provided your [b]Printing Pod[/b] and ventilation are functional.
+
+[h1]Potatoe [strike]battery[/strike] generator[/h1]
+Your [b]Printing Pod[/b] generates [u]400W[/u] for your power consumption needs. While this cannot power an entire colony, it helps as an emergency/backup power generator if everything else fails.
+
+[h1]New [i]and even more optimistic[/i] Hope[/h1]
+Starting a new game will spawn your headquarters with a functional ventilation and a neat floor lamp. Don't damage this gas piping until you have [b]Ventilation[/b] researched ... unless you want the oxygen generation to stop.
+
+[h1]Concluding remarks[/h1]
+I hope this mod helps new players by making the beginning less overwhelming and punishing. More experienced players, who don't want to rush basic colony infrastructure and wish for a more relaxed game start, might enjoy this mod as well.
+
+Be aware that the [b]Mini-Pod[/b] is not enhanced as described above.
+
+You have ideas to improve this mod or wish to see its source code? Take a look at [url=https://github.com/sungaila/SurvivalNotRequired]the GitHub repository[/url]!
