@@ -1,4 +1,5 @@
-﻿using Klei.CustomSettings;
+﻿using HarmonyLib;
+using Klei.CustomSettings;
 
 namespace SurvivalNotRequired.Patches
 {
@@ -6,13 +7,13 @@ namespace SurvivalNotRequired.Patches
     /// Sets calories burning setting to Tummyless (<see cref="STRINGS.UI.FRONTEND.CUSTOMGAMESETTINGSSCREEN.SETTINGS.CALORIE_BURN.LEVELS.DISABLED"/>).
     /// Not in use for now.
     /// </summary>
-    //[HarmonyPatch(typeof(CustomGameSettings))]
+    [HarmonyPatch(typeof(CustomGameSettings))]
     public static class CustomGameSettingsPatch
     {
         /// <summary>
         /// Prefix for <see cref="CustomGameSettings.GetCurrentQualitySetting(SettingConfig)"/>.
         /// </summary>
-        //[HarmonyPatch(typeof(CustomGameSettings), nameof(CustomGameSettings.GetCurrentQualitySetting), new[] { typeof(SettingConfig) })]
+        [HarmonyPatch(typeof(CustomGameSettings), nameof(CustomGameSettings.GetCurrentQualitySetting), new[] { typeof(SettingConfig) })]
         public static bool Prefix(SettingConfig setting, ref SettingLevel __result)
         {
             return Prefix(setting.id, ref __result);
@@ -24,7 +25,7 @@ namespace SurvivalNotRequired.Patches
         /// <param name="setting_id"></param>
         /// <param name="__result"></param>
         /// <returns></returns>
-        //[HarmonyPatch(typeof(CustomGameSettings), nameof(CustomGameSettings.GetCurrentQualitySetting), new[] { typeof(string) })]
+        [HarmonyPatch(typeof(CustomGameSettings), nameof(CustomGameSettings.GetCurrentQualitySetting), new[] { typeof(string) })]
         public static bool Prefix(string setting_id, ref SettingLevel __result)
         {
             if (setting_id != nameof(CustomGameSettingConfigs.CalorieBurn))

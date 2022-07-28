@@ -12,6 +12,9 @@ Your [b]Printing Pod[/b] generates [u]400W[/u] for your power consumption needs.
 [h1]New [i]and even more optimistic[/i] Hope[/h1]
 Starting a new game will spawn your headquarters with a functional ventilation and a neat floor lamp. Don't damage this gas piping until you have [b]Ventilation[/b] researched ... unless you want the oxygen generation to stop.
 
+[h1]Change mod settings[/h1]
+Open the file [b]%USERPROFILE%\Documents\Klei\OxygenNotIncluded\mods\Steam\2840201171\settings.yaml[/b] in a text editor and change the settings as your heart desires.
+
 [h1]Concluding remarks[/h1]
 I hope this mod helps new players by making the beginning less overwhelming and punishing. More experienced players, who don't want to rush basic colony infrastructure and wish for a more relaxed game start, might enjoy this mod as well.
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using HarmonyLib;
+using System.Linq;
 using System.Reflection;
 
 namespace SurvivalNotRequired.Patches
@@ -7,7 +8,7 @@ namespace SurvivalNotRequired.Patches
     /// Unlocks certain technologies from the beginning.
     /// Not in use for now.
     /// </summary>
-    //[HarmonyPatch(typeof(Tech), nameof(Tech.IsComplete))]
+    [HarmonyPatch(typeof(Tech), nameof(Tech.IsComplete))]
     public static class ResearchPurchasesPatch
     {
         private static readonly string[] _techIdsToPurchase = new[]

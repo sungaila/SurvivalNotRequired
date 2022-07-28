@@ -26,11 +26,11 @@ namespace SurvivalNotRequired.Patches
             __result.UtilityOutputOffset = new CellOffset(-1, 0);
 
             // and a power output at the bottom right corner
-            __result.GeneratorWattageRating = TelepadStatesInstancePatch.WATTAGE_RATING;
+            __result.GeneratorWattageRating = TelepadStatesInstancePatch.WattageRating;
             __result.GeneratorBaseCapacity = 20000f;
             __result.RequiresPowerOutput = true;
             __result.PowerOutputOffset = new CellOffset(2, 0);
-            __result.SelfHeatKilowattsWhenActive = 1f;
+            __result.SelfHeatKilowattsWhenActive = TelepadStatesInstancePatch.SelfHeatKilowattsWhenActive;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace SurvivalNotRequired.Patches
         public static void ConfigureBuildingTemplatePostfix(GameObject go)
         {
             Storage defaultStorage = BuildingTemplates.CreateDefaultStorage(go);
-            defaultStorage.SetDefaultStoredItemModifiers(Storage.StandardFabricatorStorage);
+            defaultStorage.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);
 
             ConduitDispenser conduitDispenser = go.AddOrGet<ConduitDispenser>();
             conduitDispenser.alwaysDispense = true;
@@ -56,7 +56,7 @@ namespace SurvivalNotRequired.Patches
             elementConverter.OutputMultiplier = 1f;
             elementConverter.outputElements = new ElementConverter.OutputElement[]
             {
-                new ElementConverter.OutputElement(TelepadStatesInstancePatch.OXYGEN_OUTPUT_IN_KG_PER_SECOND, SimHashes.Oxygen, TelepadStatesInstancePatch.OXYGEN_MIN_TEMPERATURE_IN_KELVIN, false, true)
+                new ElementConverter.OutputElement(TelepadStatesInstancePatch.OxygenOutputInKgPerSecond, SimHashes.Oxygen, TelepadStatesInstancePatch.OxygenMinTemperatureInKelvin, false, true)
             };
 
             Generator generator = go.AddOrGet<Generator>();

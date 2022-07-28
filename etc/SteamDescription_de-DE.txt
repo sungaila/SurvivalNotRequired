@@ -17,4 +17,4 @@ Ich hoffe diese Mod hilft neuen Spielern, indem es den Spielstart weniger überfo
 
 Bitte bedenke dass der [b]Mini-Pod[/b] keine der oben beschriebenen Verbesserungen erhält.
 
-Du hast Verbesserungsvorschläge oder möchtest den Quelltext dieser Mod sehen? Wirf einen Blick aufs [url=https://github.com/sungaila/SurvivalNotRequired]the GitHub repository[/url]!
+Du hast Verbesserungsvorschläge oder möchtest den Quelltext dieser Mod sehen? Wirf einen Blick aufs [url=https://github.com/sungaila/SurvivalNotRequired]GitHub Repository[/url]!

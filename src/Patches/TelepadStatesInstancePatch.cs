@@ -10,9 +10,10 @@ namespace SurvivalNotRequired.Patches
     [HarmonyPatch(typeof(Telepad.States), nameof(Telepad.States.InitializeStates))]
     public static class TelepadStatesInstancePatch
     {
-        public const float OXYGEN_MIN_TEMPERATURE_IN_KELVIN = 293.15f; // that's 20°C
-        public const float OXYGEN_OUTPUT_IN_KG_PER_SECOND = 0.5f;
-        public const float WATTAGE_RATING = 400f;
+        public static float OxygenMinTemperatureInKelvin { get; internal set; } = 293.15f; // that's 20°C
+        public static float OxygenOutputInKgPerSecond { get; internal set; } = 0.5f;
+        public static float WattageRating { get; internal set; } = 400f;
+        public static float SelfHeatKilowattsWhenActive { get; internal set; } = 1f; // that's 1,000 DTU/s
 
         public static void Postfix(Telepad.States __instance)
         {

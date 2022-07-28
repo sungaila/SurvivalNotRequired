@@ -1,0 +1,11 @@
+# the dispensed oxygen temperature will be the minimum of the Printing Pod and this setting
+oxygenMinTemperatureInKelvin: 293.15
+
+# how much oxygen is dispensed per second (the output must be unblocked)
+oxygenOutputInKgPerSecond: 0.5
+
+# how much power is provided
+wattageRating: 400.0
+
+# the amount of dispensed heat when the Printing Pod is active (1.0 is equal to 1,000 DTU/s)
+selfHeatKilowattsWhenActive: 1.0
