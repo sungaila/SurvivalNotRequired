@@ -4,7 +4,7 @@ using YamlDotNet.Serialization;
 namespace SurvivalNotRequired
 {
     [Serializable]
-    public class ModSettings
+    internal class ModSettings
     {
         [YamlMember(Alias = "oxygenMinTemperatureInKelvin")]
         public float? OxygenMinTemperatureInKelvin { get; set; }
@@ -17,5 +17,8 @@ namespace SurvivalNotRequired
 
         [YamlMember(Alias = "selfHeatKilowattsWhenActive")]
         public float? SelfHeatKilowattsWhenActive { get; set; }
+
+        [YamlMember(Alias = "extendMiniPod")]
+        public bool? ExtendMiniPod { get; set; }
     }
 }

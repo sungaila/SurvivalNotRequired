@@ -32,6 +32,9 @@ namespace SurvivalNotRequired
 
                 if (settings.SelfHeatKilowattsWhenActive.HasValue)
                     TelepadStatesInstancePatch.SelfHeatKilowattsWhenActive = settings.SelfHeatKilowattsWhenActive.Value;
+
+                if (settings.ExtendMiniPod.HasValue)
+                    TelepadStatesInstancePatch.ExtendMiniPod = settings.ExtendMiniPod.Value;
             }
             catch (Exception ex)
             {

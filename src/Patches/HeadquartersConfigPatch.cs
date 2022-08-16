@@ -17,20 +17,25 @@ namespace SurvivalNotRequired.Patches
         [HarmonyPostfix]
         public static void CreateBuildingDefPostfix(ref BuildingDef __result)
         {
+            ModifyBuildingDef(ref __result, new CellOffset(-1, 0), new CellOffset(2, 0));
+        }
+
+        internal static void ModifyBuildingDef(ref BuildingDef buildingDef, CellOffset utilityOutputOffset, CellOffset powerOutputOffset)
+        {
             // the headquarters should be shown in every relevant overlay
             GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, HeadquartersConfig.ID);
             GeneratedBuildings.RegisterWithOverlay(OverlayScreen.WireIDs, HeadquartersConfig.ID);
 
             // there is a gas output at the bottom left corner
-            __result.OutputConduitType = ConduitType.Gas;
-            __result.UtilityOutputOffset = new CellOffset(-1, 0);
+            buildingDef.OutputConduitType = ConduitType.Gas;
+            buildingDef.UtilityOutputOffset = utilityOutputOffset;
 
             // and a power output at the bottom right corner
-            __result.GeneratorWattageRating = TelepadStatesInstancePatch.WattageRating;
-            __result.GeneratorBaseCapacity = 20000f;
-            __result.RequiresPowerOutput = true;
-            __result.PowerOutputOffset = new CellOffset(2, 0);
-            __result.SelfHeatKilowattsWhenActive = TelepadStatesInstancePatch.SelfHeatKilowattsWhenActive;
+            buildingDef.GeneratorWattageRating = TelepadStatesInstancePatch.WattageRating;
+            buildingDef.GeneratorBaseCapacity = 20000f;
+            buildingDef.RequiresPowerOutput = true;
+            buildingDef.PowerOutputOffset = powerOutputOffset;
+            buildingDef.SelfHeatKilowattsWhenActive = TelepadStatesInstancePatch.SelfHeatKilowattsWhenActive;
         }
 
         /// <summary>
@@ -39,6 +44,11 @@ namespace SurvivalNotRequired.Patches
         [HarmonyPatch(typeof(HeadquartersConfig), nameof(HeadquartersConfig.ConfigureBuildingTemplate))]
         [HarmonyPostfix]
         public static void ConfigureBuildingTemplatePostfix(GameObject go)
+        {
+            ModifyBuildingTemplate(ref go);
+        }
+
+        internal static void ModifyBuildingTemplate(ref GameObject go)
         {
             Storage defaultStorage = BuildingTemplates.CreateDefaultStorage(go);
             defaultStorage.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);

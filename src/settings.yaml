@@ -9,3 +9,6 @@ wattageRating: 400.0
 
 # the amount of dispensed heat when the Printing Pod is active (1.0 is equal to 1,000 DTU/s)
 selfHeatKilowattsWhenActive: 1.0
+
+# whether the Mini-Pod should be extended just like the Printing Pod
+extendMiniPod: false

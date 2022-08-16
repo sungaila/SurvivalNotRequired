@@ -14,11 +14,14 @@ namespace SurvivalNotRequired.Patches
         public static float OxygenOutputInKgPerSecond { get; internal set; } = 0.5f;
         public static float WattageRating { get; internal set; } = 400f;
         public static float SelfHeatKilowattsWhenActive { get; internal set; } = 1f; // that's 1,000 DTU/s
+        public static bool ExtendMiniPod { get; internal set; } = false;
 
         public static void Postfix(Telepad.States __instance)
         {
             static void doAdditionalStuffHandler(Telepad.StatesInstance smi, float dt)
             {
+                smi.master.TryGetComponent<Operational>(out var operational);
+
                 // generate power
                 if (smi.master.TryGetComponent<Generator>(out var generator))
                 {
@@ -29,7 +32,9 @@ namespace SurvivalNotRequired.Patches
                 }
 
                 // dispense oxygen
-                if (smi.master.TryGetComponent<Storage>(out var storage) && smi.master.TryGetComponent<ElementConverter>(out var elementConverter))
+                if (smi.master.TryGetComponent<Storage>(out var storage) &&
+                    smi.master.TryGetComponent<ElementConverter>(out var elementConverter) &&
+                    operational?.IsOperational == true)
                 {
                     var outputElement = elementConverter.outputElements.Single(o => o.elementHash == SimHashes.Oxygen);
                     float outputMass = outputElement.massGenerationRate * elementConverter.OutputMultiplier * dt;

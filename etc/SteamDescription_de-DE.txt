@@ -12,9 +12,12 @@ Dein [b]Printing Pod[/b] generiert [u]400W[/u] für deinen Stromverbrauchsbedarf.
 [h1]Neue [i]und noch optimistischere[/i] Hoffnung[/h1]
 Ein neues Spiel start mit einer Basis, einer Belüftung und einer netten Stehlampe. Beschädige das Belüftungssystem nicht bevor du [b]Ventilation[/b] erforscht hast ... es sei denn die Sauerstoffproduktion soll stoppen.
 
+[h1]Modeinstellungen ändern[/h1]
+Öffne die Datei [b]%USERPROFILE%\Documents\Klei\OxygenNotIncluded\mods\Steam\2840201171\settings.yaml[/b] in einem Texteditor und verändere die Werte wie es dein Herz begehrt.
+
 [h1]Schlussbemerkungen[/h1]
 Ich hoffe diese Mod hilft neuen Spielern, indem es den Spielstart weniger überfordernd und bestrafend macht. Erfahrenere Spieler, welche sich nicht mit der Errichtung der Basisinfrastruktur hetzen und einen gemütlicheren Spielstart haben wollen, könnten diese Mod ebenfalls mögen.
 
-Bitte bedenke dass der [b]Mini-Pod[/b] keine der oben beschriebenen Verbesserungen erhält.
+Der [b]Mini-Pod[/b] erhält standardmäßig keine der oben beschriebenen Verbesserungen, dies kann aber in den Modeinstellungen aktiviert werden (siehe oben). Ändere dazu die Einstellung auf [b]extendMiniPod: true[/b].
 
 Du hast Verbesserungsvorschläge oder möchtest den Quelltext dieser Mod sehen? Wirf einen Blick aufs [url=https://github.com/sungaila/SurvivalNotRequired]GitHub Repository[/url]!
