@@ -18,6 +18,6 @@ Open the file [b]%USERPROFILE%\Documents\Klei\OxygenNotIncluded\mods\Steam\28402
 [h1]Concluding remarks[/h1]
 I hope this mod helps new players by making the beginning less overwhelming and punishing. More experienced players, who don't want to rush basic colony infrastructure and wish for a more relaxed game start, might enjoy this mod as well.
 
-The [b]Mini-Pod[/b] is not enhanced by default but you can enable it by changing the mod settings (see above). Just change the setting to [b]extendMiniPod: true[/b].
+The [b]Mini-Pod[/b] is enhanced by default but you can disable it by changing the mod settings (see above). Just change the setting to [b]extendMiniPod: false[/b].
 
 You have ideas to improve this mod or wish to see its source code? Take a look at [url=https://github.com/sungaila/SurvivalNotRequired]the GitHub repository[/url]!

@@ -11,4 +11,4 @@ wattageRating: 400.0
 selfHeatKilowattsWhenActive: 1.0
 
 # whether the Mini-Pod should be extended just like the Printing Pod
-extendMiniPod: false
+extendMiniPod: true
