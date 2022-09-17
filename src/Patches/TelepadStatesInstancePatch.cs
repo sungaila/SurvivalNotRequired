@@ -15,6 +15,7 @@ namespace SurvivalNotRequired.Patches
         public static float WattageRating { get; internal set; } = 400f;
         public static float SelfHeatKilowattsWhenActive { get; internal set; } = 1f; // that's 1,000 DTU/s
         public static bool ExtendMiniPod { get; internal set; } = true;
+        public static float CapacityInKg { get; internal set; } = 10f;
 
         public static void Postfix(Telepad.States __instance)
         {
@@ -23,7 +24,8 @@ namespace SurvivalNotRequired.Patches
                 smi.master.TryGetComponent<Operational>(out var operational);
 
                 // generate power
-                if (smi.master.TryGetComponent<Generator>(out var generator))
+                var generator = smi.master.GetComponents<Generator>().FirstOrDefault(c => c.HasTag(HeadquartersConfigPatch.GeneratorTag));
+                if (generator != null)
                 {
                     generator.EnergySim200ms(dt);
                     KSelectable component = smi.master.GetComponent<KSelectable>();
@@ -32,12 +34,13 @@ namespace SurvivalNotRequired.Patches
                 }
 
                 // dispense oxygen
-                if (smi.master.TryGetComponent<Storage>(out var storage) &&
-                    smi.master.TryGetComponent<ElementConverter>(out var elementConverter) &&
-                    operational?.IsOperational == true)
+                var storage = smi.master.GetComponents<Storage>().FirstOrDefault(c => c.HasTag(HeadquartersConfigPatch.StorageTag));
+                var elementConverter = smi.master.GetComponents<ElementConverter>().FirstOrDefault(c => c.HasTag(HeadquartersConfigPatch.ElementConverterTag));
+                if (storage != null && elementConverter != null && operational?.IsOperational == true)
                 {
                     var outputElement = elementConverter.outputElements.Single(o => o.elementHash == SimHashes.Oxygen);
                     float outputMass = outputElement.massGenerationRate * elementConverter.OutputMultiplier * dt;
+                    outputMass = Mathf.Max(Mathf.Min(outputMass, storage.RemainingCapacity()), 0);
                     Game.Instance.accumulators.Accumulate(outputElement.accumulator, outputMass);
 
                     var component = smi.master.GetComponent<PrimaryElement>();

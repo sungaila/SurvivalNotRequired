@@ -20,5 +20,8 @@ namespace SurvivalNotRequired
 
         [YamlMember(Alias = "extendMiniPod")]
         public bool? ExtendMiniPod { get; set; }
+
+        [YamlMember(Alias = "capacityInKg")]
+        public float? CapacityInKg { get; set; }
     }
 }

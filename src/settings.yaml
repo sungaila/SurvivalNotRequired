@@ -12,3 +12,6 @@ selfHeatKilowattsWhenActive: 1.0
 
 # whether the Mini-Pod should be extended just like the Printing Pod
 extendMiniPod: true
+
+# the storage capacity (for oxygen) of the Printing Pod
+capacityInKg: 10.0

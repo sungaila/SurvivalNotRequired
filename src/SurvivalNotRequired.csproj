@@ -4,7 +4,7 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyOriginatorKeyFile>SurvivalNotRequired.snk</AssemblyOriginatorKeyFile>
     <Configurations>Debug;Release;ReleaseSigned;ReleaseSigned</Configurations>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <!-- C# compiler -->
@@ -74,6 +74,6 @@
     </Reference>
   </ItemGroup>
 
-  <Import Project="PDFtoImage.PropertiesSigning.targets" />
-  <Import Project="PDFtoImage.CodeSigning.targets" />
+  <Import Project="SurvivalNotRequired.PropertiesSigning.targets" />
+  <Import Project="SurvivalNotRequired.CodeSigning.targets" />
 </Project>

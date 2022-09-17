@@ -35,6 +35,9 @@ namespace SurvivalNotRequired
 
                 if (settings.ExtendMiniPod.HasValue)
                     TelepadStatesInstancePatch.ExtendMiniPod = settings.ExtendMiniPod.Value;
+
+                if (settings.CapacityInKg.HasValue)
+                    TelepadStatesInstancePatch.CapacityInKg = settings.CapacityInKg.Value;
             }
             catch (Exception ex)
             {

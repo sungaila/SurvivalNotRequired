@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SurvivalNotRequired.Patches
@@ -10,6 +11,11 @@ namespace SurvivalNotRequired.Patches
     [HarmonyPatch(typeof(HeadquartersConfig))]
     public static class HeadquartersConfigPatch
     {
+        internal static readonly Tag StorageTag = TagManager.Create("6DB61B5E-2CC7-4354-BFAE-A0577DD7D65B");
+        internal static readonly Tag ConduitDispenserTag = TagManager.Create("32EAE057-3F2E-44F0-833A-D9A212CD5F21");
+        internal static readonly Tag ElementConverterTag = TagManager.Create("051FC465-2947-453C-BE2E-FEAFDF51B5EA");
+        internal static readonly Tag GeneratorTag = TagManager.Create("B217C2D3-AAA6-4D7C-B079-C8EC0332BCAC");
+
         /// <summary>
         /// Postfix for <see cref="HeadquartersConfig.CreateBuildingDef"/>.
         /// </summary>
@@ -50,10 +56,11 @@ namespace SurvivalNotRequired.Patches
 
         internal static void ModifyBuildingTemplate(ref GameObject go)
         {
-            Storage defaultStorage = BuildingTemplates.CreateDefaultStorage(go);
-            defaultStorage.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);
+            Storage storage = go.AddComponentAndTag<Storage>(StorageTag);
+            storage.capacityKg = TelepadStatesInstancePatch.CapacityInKg;
+            storage.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);
 
-            ConduitDispenser conduitDispenser = go.AddOrGet<ConduitDispenser>();
+            ConduitDispenser conduitDispenser = go.AddComponentAndTag<ConduitDispenser>(ConduitDispenserTag);
             conduitDispenser.alwaysDispense = true;
             conduitDispenser.conduitType = ConduitType.Gas;
             conduitDispenser.elementFilter = new SimHashes[1]
@@ -62,14 +69,14 @@ namespace SurvivalNotRequired.Patches
             };
 
             // this converter is used indirectly but won't be converting anything
-            ElementConverter elementConverter = go.AddOrGet<ElementConverter>();
+            ElementConverter elementConverter = go.AddComponentAndTag<ElementConverter>(ElementConverterTag);
             elementConverter.OutputMultiplier = 1f;
             elementConverter.outputElements = new ElementConverter.OutputElement[]
             {
                 new ElementConverter.OutputElement(TelepadStatesInstancePatch.OxygenOutputInKgPerSecond, SimHashes.Oxygen, TelepadStatesInstancePatch.OxygenMinTemperatureInKelvin, false, true)
             };
 
-            Generator generator = go.AddOrGet<Generator>();
+            Generator generator = go.AddComponentAndTag<Generator>(GeneratorTag);
             generator.powerDistributionOrder = 10;
         }
     }

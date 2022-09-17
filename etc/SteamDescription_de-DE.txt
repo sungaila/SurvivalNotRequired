@@ -18,6 +18,4 @@ Ein neues Spiel start mit einer Basis, einer Belüftung und einer netten Stehlamp
 [h1]Schlussbemerkungen[/h1]
 Ich hoffe diese Mod hilft neuen Spielern, indem es den Spielstart weniger überfordernd und bestrafend macht. Erfahrenere Spieler, welche sich nicht mit der Errichtung der Basisinfrastruktur hetzen und einen gemütlicheren Spielstart haben wollen, könnten diese Mod ebenfalls mögen.
 
-Der [b]Mini-Pod[/b] erhält standardmäßig ebenfalls die oben beschriebenen Verbesserungen, dies kann aber in den Modeinstellungen deaktiviert werden (siehe oben). Ändere dazu die Einstellung auf [b]extendMiniPod: false[/b].
-
 Du hast Verbesserungsvorschläge oder möchtest den Quelltext dieser Mod sehen? Wirf einen Blick aufs [url=https://github.com/sungaila/SurvivalNotRequired]GitHub Repository[/url]!
