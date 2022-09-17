@@ -14,7 +14,7 @@ namespace SurvivalNotRequired.Patches
         public static float OxygenOutputInKgPerSecond { get; internal set; } = 0.5f;
         public static float WattageRating { get; internal set; } = 400f;
         public static float SelfHeatKilowattsWhenActive { get; internal set; } = 1f; // that's 1,000 DTU/s
-        public static bool ExtendMiniPod { get; internal set; } = false;
+        public static bool ExtendMiniPod { get; internal set; } = true;
 
         public static void Postfix(Telepad.States __instance)
         {
