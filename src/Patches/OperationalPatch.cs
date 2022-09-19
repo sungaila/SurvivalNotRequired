@@ -10,6 +10,12 @@ namespace SurvivalNotRequired.Patches
     [HarmonyPatch(typeof(Operational), "UpdateOperational")]
     public static class OperationalPatch
     {
+        private static readonly string[] _instanceNameWhitelist = new[]
+        {
+            "HeadquartersComplete",
+            "ExobaseHeadquartersComplete"
+        };
+
         private static readonly string[] _isOperationalBlacklist = new[]
         {
             "pipesHaveRoom",
@@ -25,8 +31,8 @@ namespace SurvivalNotRequired.Patches
 
         public static bool Prefix(Operational __instance)
         {
-            // ignore every Operational except for the headquarters
-            if (__instance.name != "HeadquartersComplete")
+            // ignore every Operational except for Printing Pod and Mini-Pod
+            if (!_instanceNameWhitelist.Contains(__instance.name))
                 return true;
 
             // recreate the method UpdateOperational plus a blacklist for ignored flags
