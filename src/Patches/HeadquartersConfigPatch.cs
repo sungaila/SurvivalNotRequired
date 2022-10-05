@@ -72,7 +72,7 @@ namespace SurvivalNotRequired.Patches
             elementConverter.OutputMultiplier = 1f;
             elementConverter.outputElements = new ElementConverter.OutputElement[]
             {
-                new ElementConverter.OutputElement(TelepadStatesInstancePatch.OxygenOutputInKgPerSecond, SimHashes.Oxygen, TelepadStatesInstancePatch.OxygenMinTemperatureInKelvin, false, true)
+                new ElementConverter.OutputElement(TelepadStatesInstancePatch.OxygenOutputInKgPerSecond, SimHashes.Oxygen, minOutputTemperature: TelepadStatesInstancePatch.OxygenMinTemperatureInKelvin, storeOutput: true)
             };
 
             Generator generator = go.AddComponentAndTag<Generator>(GeneratorTag);

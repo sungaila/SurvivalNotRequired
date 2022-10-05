@@ -4,7 +4,7 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyOriginatorKeyFile>SurvivalNotRequired.snk</AssemblyOriginatorKeyFile>
     <Configurations>Debug;Release;ReleaseSigned;ReleaseSigned</Configurations>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
   </PropertyGroup>
 
   <!-- C# compiler -->
@@ -27,12 +27,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="archived_versions\all_514967\mod.yaml" />
+    <None Remove="archived_versions\all_514967\mod_info.yaml" />
+    <None Remove="archived_versions\all_514967\settings.yaml" />
+    <None Remove="archived_versions\all_514967\SurvivalNotRequired.dll" />
     <None Remove="mod.yaml" />
     <None Remove="mod_info.yaml" />
     <None Remove="settings.yaml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="archived_versions\all_514967\mod.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_514967\mod_info.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_514967\settings.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_514967\SurvivalNotRequired.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="settings.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
