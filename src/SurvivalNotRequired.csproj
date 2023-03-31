@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
     <AssemblyOriginatorKeyFile>SurvivalNotRequired.snk</AssemblyOriginatorKeyFile>
-    <Configurations>Debug;Release;ReleaseSigned;ReleaseSigned</Configurations>
-    <Version>1.1.4</Version>
+    <Configurations>Debug;Release;ReleaseSigned</Configurations>
+    <Version>1.1.5</Version>
   </PropertyGroup>
 
   <!-- C# compiler -->
@@ -31,6 +31,10 @@
     <None Remove="archived_versions\all_514967\mod_info.yaml" />
     <None Remove="archived_versions\all_514967\settings.yaml" />
     <None Remove="archived_versions\all_514967\SurvivalNotRequired.dll" />
+    <None Remove="archived_versions\all_525812\mod.yaml" />
+    <None Remove="archived_versions\all_525812\mod_info.yaml" />
+    <None Remove="archived_versions\all_525812\settings.yaml" />
+    <None Remove="archived_versions\all_525812\SurvivalNotRequired.dll" />
     <None Remove="mod.yaml" />
     <None Remove="mod_info.yaml" />
     <None Remove="settings.yaml" />
@@ -47,6 +51,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="archived_versions\all_514967\SurvivalNotRequired.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_525812\mod.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_525812\mod_info.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_525812\settings.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_525812\SurvivalNotRequired.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="settings.yaml">

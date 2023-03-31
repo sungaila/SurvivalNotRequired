@@ -4,6 +4,7 @@ using ProcGenGame;
 using System.Collections.Generic;
 using System.Linq;
 using TemplateClasses;
+using static ProcGenGame.TemplateSpawning;
 
 namespace SurvivalNotRequired.Patches
 {
@@ -18,7 +19,7 @@ namespace SurvivalNotRequired.Patches
         /// <summary>
         /// Postfix for <see cref="TemplateSpawning.DetermineTemplatesForWorld"/>.
         /// </summary>
-        public static void Postfix(WorldGenSettings settings, ref List<KeyValuePair<Vector2I, TemplateContainer>> __result)
+        public static void Postfix(WorldGenSettings settings, ref List<TemplateSpawner> __result)
         {
             // make sure that the templates won't be patched twice
             if (_templatesPatched || string.IsNullOrEmpty(settings.world.startingBaseTemplate))
@@ -29,8 +30,8 @@ namespace SurvivalNotRequired.Patches
                 // iterate through every template containing a headquarter
                 // assume this is the starting base template
                 foreach (var templateContainer in __result
-                    .Where(t => t.Value?.buildings != null && t.Value.buildings.Any(b => b.id == HeadquartersConfig.ID))
-                    .Select(t => t.Value))
+                    .Where(t => t.container.buildings != null && t.container.buildings.Any(b => b.id == HeadquartersConfig.ID))
+                    .Select(t => t.container))
                 {
                     var headquarters = templateContainer.buildings.Single(b => b.id == HeadquartersConfig.ID);
 
