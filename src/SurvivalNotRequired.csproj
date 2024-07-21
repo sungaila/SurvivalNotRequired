@@ -4,7 +4,7 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyOriginatorKeyFile>SurvivalNotRequired.snk</AssemblyOriginatorKeyFile>
     <Configurations>Debug;Release;ReleaseSigned</Configurations>
-    <Version>1.1.5</Version>
+    <Version>1.1.6</Version>
   </PropertyGroup>
 
   <!-- C# compiler -->
@@ -31,6 +31,10 @@
     <None Remove="archived_versions\all_514967\mod_info.yaml" />
     <None Remove="archived_versions\all_514967\settings.yaml" />
     <None Remove="archived_versions\all_514967\SurvivalNotRequired.dll" />
+    <None Remove="archived_versions\all_550759\mod.yaml" />
+    <None Remove="archived_versions\all_550759\mod_info.yaml" />
+    <None Remove="archived_versions\all_550759\settings.yaml" />
+    <None Remove="archived_versions\all_550759\SurvivalNotRequired.dll" />
     <None Remove="archived_versions\all_525812\mod.yaml" />
     <None Remove="archived_versions\all_525812\mod_info.yaml" />
     <None Remove="archived_versions\all_525812\settings.yaml" />
@@ -51,6 +55,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="archived_versions\all_514967\SurvivalNotRequired.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_550759\mod.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_550759\mod_info.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_550759\settings.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="archived_versions\all_550759\SurvivalNotRequired.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="archived_versions\all_525812\mod.yaml">
@@ -80,7 +96,7 @@
 
   <!-- SourceLink build steps and NuGet packages -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -89,20 +105,16 @@
   <!-- References to the Oxygen Not Included assemblies -->
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>D:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>D:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>D:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>D:\SteamLibrary\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
