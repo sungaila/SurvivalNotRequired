@@ -21,23 +21,8 @@ namespace SurvivalNotRequired
                     settingsPath,
                     (error, _) => Debug.LogWarning($"Failed to load settings.yaml for the mod SurvivalNotRequired. Using default values as fallback. Error: {error.message}"));
 
-                if (settings.OxygenMinTemperatureInKelvin.HasValue)
-                    TelepadStatesInstancePatch.OxygenMinTemperatureInKelvin = settings.OxygenMinTemperatureInKelvin.Value;
-
-                if (settings.OxygenOutputInKgPerSecond.HasValue)
-                    TelepadStatesInstancePatch.OxygenOutputInKgPerSecond = settings.OxygenOutputInKgPerSecond.Value;
-
-                if (settings.WattageRating.HasValue)
-                    TelepadStatesInstancePatch.WattageRating = settings.WattageRating.Value;
-
-                if (settings.SelfHeatKilowattsWhenActive.HasValue)
-                    TelepadStatesInstancePatch.SelfHeatKilowattsWhenActive = settings.SelfHeatKilowattsWhenActive.Value;
-
-                if (settings.ExtendMiniPod.HasValue)
-                    TelepadStatesInstancePatch.ExtendMiniPod = settings.ExtendMiniPod.Value;
-
-                if (settings.CapacityInKg.HasValue)
-                    TelepadStatesInstancePatch.CapacityInKg = settings.CapacityInKg.Value;
+                if (settings != null)
+                    ModSettings.Instance = settings;
             }
             catch (Exception ex)
             {

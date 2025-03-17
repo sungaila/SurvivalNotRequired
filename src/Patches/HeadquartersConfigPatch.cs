@@ -1,20 +1,16 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Modifies the headquarters building definition.
-    /// Now it dispenses a baseline of oxygen and electricity.
+    /// Now it dispenses a baseline of oxygen, water and electricity.
     /// </summary>
     [HarmonyPatch(typeof(HeadquartersConfig))]
     public static class HeadquartersConfigPatch
     {
-        internal static readonly Tag StorageTag = TagManager.Create("6DB61B5E-2CC7-4354-BFAE-A0577DD7D65B");
-        internal static readonly Tag ConduitDispenserTag = TagManager.Create("32EAE057-3F2E-44F0-833A-D9A212CD5F21");
-        internal static readonly Tag ElementConverterTag = TagManager.Create("051FC465-2947-453C-BE2E-FEAFDF51B5EA");
-        internal static readonly Tag GeneratorTag = TagManager.Create("B217C2D3-AAA6-4D7C-B079-C8EC0332BCAC");
-
         /// <summary>
         /// Postfix for <see cref="HeadquartersConfig.CreateBuildingDef"/>.
         /// </summary>
@@ -22,25 +18,34 @@ namespace SurvivalNotRequired.Patches
         [HarmonyPostfix]
         public static void CreateBuildingDefPostfix(ref BuildingDef __result)
         {
-            ModifyBuildingDef(ref __result, new CellOffset(-1, 0), new CellOffset(2, 0));
+            ModifyBuildingDef(ref __result, new CellOffset(2, 0));
         }
 
-        internal static void ModifyBuildingDef(ref BuildingDef buildingDef, CellOffset utilityOutputOffset, CellOffset powerOutputOffset)
+        internal static void ModifyBuildingDef(ref BuildingDef buildingDef, CellOffset powerOutputOffset)
         {
-            // the headquarters should be shown in every relevant overlay
-            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, HeadquartersConfig.ID);
-            GeneratedBuildings.RegisterWithOverlay(OverlayScreen.WireIDs, HeadquartersConfig.ID);
+            // a power output at the bottom right corner
+            if (ModSettings.Instance.EnablePower)
+            {
+                buildingDef.GeneratorWattageRating = ModSettings.Instance.WattageRating;
+                buildingDef.GeneratorBaseCapacity = 20000f;
+                buildingDef.RequiresPowerOutput = true;
+                buildingDef.PowerOutputOffset = powerOutputOffset;
+                buildingDef.SelfHeatKilowattsWhenActive = ModSettings.Instance.SelfHeatKilowattsWhenActive;
 
-            // there is a gas output at the bottom left corner
-            buildingDef.OutputConduitType = ConduitType.Gas;
-            buildingDef.UtilityOutputOffset = utilityOutputOffset;
+                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.WireIDs, HeadquartersConfig.ID);
+            }
 
-            // and a power output at the bottom right corner
-            buildingDef.GeneratorWattageRating = TelepadStatesInstancePatch.WattageRating;
-            buildingDef.GeneratorBaseCapacity = 20000f;
-            buildingDef.RequiresPowerOutput = true;
-            buildingDef.PowerOutputOffset = powerOutputOffset;
-            buildingDef.SelfHeatKilowattsWhenActive = TelepadStatesInstancePatch.SelfHeatKilowattsWhenActive;
+            // a gas output at the bottom left corner
+            if (ModSettings.Instance.EnableGas)
+            {
+                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, HeadquartersConfig.ID);
+            }
+
+            // a gas output at the bottom right corner
+            if (ModSettings.Instance.EnableLiquid)
+            {
+                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.LiquidVentIDs, HeadquartersConfig.ID);
+            }
         }
 
         /// <summary>
@@ -48,35 +53,74 @@ namespace SurvivalNotRequired.Patches
         /// </summary>
         [HarmonyPatch(typeof(HeadquartersConfig), nameof(HeadquartersConfig.ConfigureBuildingTemplate))]
         [HarmonyPostfix]
-        public static void ConfigureBuildingTemplatePostfix(GameObject go)
+        public static void ConfigureBuildingTemplatePostfix(GameObject go, Tag prefab_tag)
         {
-            ModifyBuildingTemplate(ref go);
+            ModifyBuildingTemplate(ref go, new CellOffset(-1, 0), new CellOffset(2, 0));
         }
 
-        internal static void ModifyBuildingTemplate(ref GameObject go)
+        internal static void ModifyBuildingTemplate(ref GameObject go, CellOffset gasOutputOffset, CellOffset liquidOutputOffset)
         {
-            Storage storage = go.AddComponentAndTag<Storage>(StorageTag);
-            storage.capacityKg = TelepadStatesInstancePatch.CapacityInKg;
-            storage.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);
-
-            ConduitDispenser conduitDispenser = go.AddComponentAndTag<ConduitDispenser>(ConduitDispenserTag);
-            conduitDispenser.alwaysDispense = true;
-            conduitDispenser.conduitType = ConduitType.Gas;
-            conduitDispenser.elementFilter = new SimHashes[1]
+            if (ModSettings.Instance.EnablePower)
             {
-                SimHashes.Oxygen
-            };
+                Generator generator = go.AddComponent<Generator>();
+                generator.powerDistributionOrder = 10;
+            }
 
-            // this converter is used indirectly but won't be converting anything
-            ElementConverter elementConverter = go.AddComponentAndTag<ElementConverter>(ElementConverterTag);
+            if (!ModSettings.Instance.EnableGas && !ModSettings.Instance.EnableLiquid)
+                return;
+
+            ElementConverter elementConverter = go.AddComponent<ElementConverter>();
             elementConverter.OutputMultiplier = 1f;
-            elementConverter.outputElements = new ElementConverter.OutputElement[]
-            {
-                new ElementConverter.OutputElement(TelepadStatesInstancePatch.OxygenOutputInKgPerSecond, SimHashes.Oxygen, minOutputTemperature: TelepadStatesInstancePatch.OxygenMinTemperatureInKelvin, storeOutput: true)
-            };
 
-            Generator generator = go.AddComponentAndTag<Generator>(GeneratorTag);
-            generator.powerDistributionOrder = 10;
+            var outputElements = new List<ElementConverter.OutputElement>();
+
+            if (ModSettings.Instance.EnableGas)
+            {
+                Storage storageGas = go.AddComponent<Storage>();
+                storageGas.capacityKg = ModSettings.Instance.CapacityGasInKg;
+                storageGas.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);
+                storageGas.storageFilters = [GameTags.Oxygen];
+
+                ConduitDispenser conduitDispenserGas = go.AddComponent<ConduitDispenser>();
+                conduitDispenserGas.alwaysDispense = true;
+                conduitDispenserGas.conduitType = ConduitType.Gas;
+                conduitDispenserGas.storage = storageGas;
+                conduitDispenserGas.elementFilter =
+                [
+                    SimHashes.Oxygen
+                ];
+                conduitDispenserGas.useSecondaryOutput = true;
+
+                ConduitSecondaryOutput conduitSecondaryOutput = conduitDispenserGas.gameObject.AddComponent<ConduitSecondaryOutput>();
+                conduitSecondaryOutput.portInfo = new ConduitPortInfo(ConduitType.Gas, gasOutputOffset);
+
+                outputElements.Add(new ElementConverter.OutputElement(ModSettings.Instance.OxygenOutputInKgPerSecond, SimHashes.Oxygen, minOutputTemperature: ModSettings.Instance.OxygenMinTemperatureInKelvin, storeOutput: true));
+            }
+
+            if (ModSettings.Instance.EnableLiquid)
+            {
+                Storage storageLiquid = go.AddComponent<Storage>();
+                storageLiquid.capacityKg = ModSettings.Instance.CapacityLiquidInKg;
+                storageLiquid.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);
+                storageLiquid.storageFilters = [GameTags.Water];
+
+                ConduitDispenser conduitDispenserLiquid = go.AddComponent<ConduitDispenser>();
+                conduitDispenserLiquid.alwaysDispense = true;
+                conduitDispenserLiquid.conduitType = ConduitType.Liquid;
+                conduitDispenserLiquid.storage = storageLiquid;
+                conduitDispenserLiquid.elementFilter =
+                [
+                    SimHashes.Water
+                ];
+                conduitDispenserLiquid.useSecondaryOutput = true;
+
+                ConduitSecondaryOutput conduitSecondaryOutput = conduitDispenserLiquid.gameObject.AddComponent<ConduitSecondaryOutput>();
+                conduitSecondaryOutput.portInfo = new ConduitPortInfo(ConduitType.Liquid, liquidOutputOffset);
+
+                outputElements.Add(new ElementConverter.OutputElement(ModSettings.Instance.WaterOutputInKgPerSecond, SimHashes.Water, minOutputTemperature: ModSettings.Instance.WaterMinTemperatureInKelvin, storeOutput: true));
+            }
+
+            elementConverter.outputElements = [.. outputElements];
         }
     }
 }

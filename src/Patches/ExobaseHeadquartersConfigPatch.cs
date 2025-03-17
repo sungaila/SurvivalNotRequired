@@ -17,10 +17,10 @@ namespace SurvivalNotRequired.Patches
         [HarmonyPostfix]
         public static void CreateBuildingDefPostfix(ref BuildingDef __result)
         {
-            if (!TelepadStatesInstancePatch.ExtendMiniPod)
+            if (!ModSettings.Instance.ExtendMiniPod)
                 return;
 
-            HeadquartersConfigPatch.ModifyBuildingDef(ref __result, new CellOffset(-1, 0), new CellOffset(1, 0));
+            HeadquartersConfigPatch.ModifyBuildingDef(ref __result, new CellOffset(1, 0));
         }
 
         /// <summary>
@@ -28,12 +28,12 @@ namespace SurvivalNotRequired.Patches
         /// </summary>
         [HarmonyPatch(typeof(ExobaseHeadquartersConfig), nameof(ExobaseHeadquartersConfig.ConfigureBuildingTemplate))]
         [HarmonyPostfix]
-        public static void ConfigureBuildingTemplatePostfix(GameObject go)
+        public static void ConfigureBuildingTemplatePostfix(GameObject go, Tag prefab_tag)
         {
-            if (!TelepadStatesInstancePatch.ExtendMiniPod)
+            if (!ModSettings.Instance.ExtendMiniPod)
                 return;
 
-            HeadquartersConfigPatch.ModifyBuildingTemplate(ref go);
+            HeadquartersConfigPatch.ModifyBuildingTemplate(ref go, new CellOffset(-1, 0), new CellOffset(1, 0));
         }
     }
 }

@@ -1,13 +1,16 @@
 [h1]Peppe deine Kolonie auf und überstehe Katastrophen einfacher[/h1]
 Ein kleiner Fehler kann deine gesamte Kolonie (scheinbar unwiederbringlich) verdammen – insbesonders für Anfänger!
 
-Diese Mod verbessert dein [b]Printing Pod[/b] und macht das Überleben der ersten Tageszyklen ein wenig einfacher.
+Diese Mod verbessert dein [b]Printing Pod[/b] (und auch [b]Mini-Pod[/b]) und macht das Überleben der ersten Tageszyklen deutlich einfacher.
 
 [h1]Oxygen Is Included[/h1]
-Dein [b]Printing Pod[/b] produziert [u]500g/s Sauerstoff[/u]. Dies hält ein paar Duplikaten vom Ersticken ab und hilft beim Wiederaufbau einer luftleeren Basis. Vorausgesetzt dein [b]Printing Pod[/b] und die Belüftung funktionieren.
+Dein [b]Printing Pod[/b] produziert [u]500g/s Sauerstoff[/u]. Dies hält ein paar Duplikaten vom Ersticken ab und hilft beim Wiederaufbau einer luftleeren Basis.
 
 [h1]Kartoffel[strike]batterie[/strike]generator[/h1]
 Dein [b]Printing Pod[/b] generiert [u]400W[/u] für deinen Stromverbrauchsbedarf. Dies kann zwar keine vollständige Kolonie betreiben, aber es hilft als Notstromaggregat, sobald alles andere versagt.
+
+[h1]Trinkwasserspender[/h1]
+Dein [b]Printing Pod[/b] produziert [u]100g/s Wasser[/u]. Damit ist zumindest die Toilettenspühlung für den Tag gesichert.
 
 [h1]Neue [i]und noch optimistischere[/i] Hoffnung[/h1]
 Ein neues Spiel start mit einer Basis, einer Belüftung und einer netten Stehlampe. Beschädige das Belüftungssystem nicht bevor du [b]Ventilation[/b] erforscht hast ... es sei denn die Sauerstoffproduktion soll stoppen.

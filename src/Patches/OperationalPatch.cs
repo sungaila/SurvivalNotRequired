@@ -5,24 +5,24 @@ using System.Reflection;
 namespace SurvivalNotRequired.Patches
 {
     /// <summary>
-    /// Keep the headquarters operational even if oxygen and power generation are not.
+    /// Keep the headquarters operational even if oxygen, water and power generation are not.
     /// </summary>
     [HarmonyPatch(typeof(Operational), "UpdateOperational")]
     public static class OperationalPatch
     {
-        private static readonly string[] _instanceNameWhitelist = new[]
-        {
+        private static readonly string[] _instanceNameWhitelist =
+        [
             "HeadquartersComplete",
             "ExobaseHeadquartersComplete"
-        };
+        ];
 
-        private static readonly string[] _isOperationalBlacklist = new[]
-        {
+        private static readonly string[] _isOperationalBlacklist =
+        [
             "pipesHaveRoom",
             "output_connected",
             "output_conduit",
             "GeneratorConnected"
-        };
+        ];
 
         /// <summary>
         /// The property <see cref="Operational.IsOperational"/> found via reflection. This way we can access the private setter.
