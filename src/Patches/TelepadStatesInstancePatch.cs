@@ -44,7 +44,7 @@ namespace SurvivalNotRequired.Patches
             // dispense oxygen
             if (ModSettings.Instance.EnableGas && smi.master.GetComponents<Storage>().FirstOrDefault(c => c.storageFilters.SingleOrDefault() == GameTags.Oxygen) is Storage storageGas)
             {
-                var outputElement = elementConverter.outputElements[0];
+                var outputElement = elementConverter.outputElements.First(o => o.elementHash == SimHashes.Oxygen);
                 float outputMass = outputElement.massGenerationRate * elementConverter.OutputMultiplier * dt;
                 outputMass = Mathf.Max(Mathf.Min(outputMass, storageGas.RemainingCapacity()), 0);
                 Game.Instance.accumulators.Accumulate(outputElement.accumulator, outputMass);
@@ -62,7 +62,7 @@ namespace SurvivalNotRequired.Patches
             // dispense water
             if (ModSettings.Instance.EnableLiquid && smi.master.GetComponents<Storage>().FirstOrDefault(c => c.storageFilters.SingleOrDefault() == GameTags.Water) is Storage storageLiquid)
             {
-                var outputElement = elementConverter.outputElements[0];
+                var outputElement = elementConverter.outputElements.First(o => o.elementHash == SimHashes.Water);
                 float outputMass = outputElement.massGenerationRate * elementConverter.OutputMultiplier * dt;
                 outputMass = Mathf.Max(Mathf.Min(outputMass, storageLiquid.RemainingCapacity()), 0);
                 Game.Instance.accumulators.Accumulate(outputElement.accumulator, outputMass);
