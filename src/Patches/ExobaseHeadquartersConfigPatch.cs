@@ -20,7 +20,7 @@ namespace SurvivalNotRequired.Patches
             if (!ModSettings.Instance.ExtendMiniPod)
                 return;
 
-            HeadquartersConfigPatch.ModifyBuildingDef(ref __result, new CellOffset(1, 0));
+            HeadquartersConfigPatch.ModifyBuildingDef(ref __result, new CellOffset(1, 0), ExobaseHeadquartersConfig.ID);
         }
 
         /// <summary>

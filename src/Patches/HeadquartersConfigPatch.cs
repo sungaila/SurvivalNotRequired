@@ -18,10 +18,10 @@ namespace SurvivalNotRequired.Patches
         [HarmonyPostfix]
         public static void CreateBuildingDefPostfix(ref BuildingDef __result)
         {
-            ModifyBuildingDef(ref __result, new CellOffset(2, 0));
+            ModifyBuildingDef(ref __result, new CellOffset(2, 0), HeadquartersConfig.ID);
         }
 
-        internal static void ModifyBuildingDef(ref BuildingDef buildingDef, CellOffset powerOutputOffset)
+        internal static void ModifyBuildingDef(ref BuildingDef buildingDef, CellOffset powerOutputOffset, string configId)
         {
             // a power output at the bottom right corner
             if (ModSettings.Instance.EnablePower)
@@ -32,19 +32,19 @@ namespace SurvivalNotRequired.Patches
                 buildingDef.PowerOutputOffset = powerOutputOffset;
                 buildingDef.SelfHeatKilowattsWhenActive = ModSettings.Instance.SelfHeatKilowattsWhenActive;
 
-                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.WireIDs, HeadquartersConfig.ID);
+                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.WireIDs, configId);
             }
 
             // a gas output at the bottom left corner
             if (ModSettings.Instance.EnableGas)
             {
-                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, HeadquartersConfig.ID);
+                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, configId);
             }
 
             // a gas output at the bottom right corner
             if (ModSettings.Instance.EnableLiquid)
             {
-                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.LiquidVentIDs, HeadquartersConfig.ID);
+                GeneratedBuildings.RegisterWithOverlay(OverlayScreen.LiquidVentIDs, configId);
             }
         }
 
