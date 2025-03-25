@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using static StateMachine;
 
-namespace SurvivalNotRequired.Patches
+namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Dispense oxygen, water and provide some power. 

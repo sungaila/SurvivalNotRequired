@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SurvivalNotRequired.Patches
+namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Modifies the headquarters building definition.

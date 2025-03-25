@@ -1,11 +1,10 @@
 ﻿using HarmonyLib;
 using Klei;
 using KMod;
-using SurvivalNotRequired.Patches;
 using System;
 using System.IO;
 
-namespace SurvivalNotRequired
+namespace Sungaila.SurvivalNotRequired
 {
     /// <summary>
     /// Loading the mod settings before anything is patched.

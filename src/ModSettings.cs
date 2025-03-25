@@ -1,7 +1,7 @@
 ﻿using System;
 using YamlDotNet.Serialization;
 
-namespace SurvivalNotRequired
+namespace Sungaila.SurvivalNotRequired
 {
     [Serializable]
     internal class ModSettings

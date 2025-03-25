@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 
-namespace SurvivalNotRequired.Patches
+namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Modifies the exobaseheadquarters building definition.

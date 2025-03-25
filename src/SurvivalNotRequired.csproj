@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Configurations>Debug;Release;ReleaseSigned</Configurations>
+    <AssemblyName>SurvivalNotRequired</AssemblyName>
+    <RootNamespace>Sungaila.SurvivalNotRequired</RootNamespace>
+    <DebugType>none</DebugType>
     <Version>1.2.2</Version>
   </PropertyGroup>
 
@@ -22,7 +25,6 @@
     <Optimize>true</Optimize>
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    <DebugType>none</DebugType>
   </PropertyGroup>
 
   <ItemGroup>

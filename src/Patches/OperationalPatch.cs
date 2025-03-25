@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace SurvivalNotRequired.Patches
+namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Keep the headquarters operational even if oxygen, water and power generation are not.

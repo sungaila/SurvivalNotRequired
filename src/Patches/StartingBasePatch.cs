@@ -6,7 +6,7 @@ using System.Linq;
 using TemplateClasses;
 using UnityEngine;
 
-namespace SurvivalNotRequired.Patches
+namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Adds a gas vent and a floor lamp to the starting base.
