@@ -6,7 +6,7 @@
     <AssemblyName>SurvivalNotRequired</AssemblyName>
     <RootNamespace>Sungaila.SurvivalNotRequired</RootNamespace>
     <DebugType>none</DebugType>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
   </PropertyGroup>
 
   <!-- C# compiler -->
@@ -15,7 +15,7 @@
     <Nullable>enable</Nullable>
     <Features>strict</Features>
     <WarningsAsErrors>nullable</WarningsAsErrors>
-    <NoWarn>IDE0060</NoWarn>
+    <NoWarn>IDE0060;MSB3277</NoWarn>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
@@ -26,24 +26,6 @@
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="archived_versions\all_514967\mod.yaml" />
-    <None Remove="archived_versions\all_514967\mod_info.yaml" />
-    <None Remove="archived_versions\all_514967\settings.yaml" />
-    <None Remove="archived_versions\all_514967\SurvivalNotRequired.dll" />
-    <None Remove="archived_versions\all_550759\mod.yaml" />
-    <None Remove="archived_versions\all_550759\mod_info.yaml" />
-    <None Remove="archived_versions\all_550759\settings.yaml" />
-    <None Remove="archived_versions\all_550759\SurvivalNotRequired.dll" />
-    <None Remove="archived_versions\all_525812\mod.yaml" />
-    <None Remove="archived_versions\all_525812\mod_info.yaml" />
-    <None Remove="archived_versions\all_525812\settings.yaml" />
-    <None Remove="archived_versions\all_525812\SurvivalNotRequired.dll" />
-    <None Remove="mod.yaml" />
-    <None Remove="mod_info.yaml" />
-    <None Remove="settings.yaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="archived_versions\**\*.*">

@@ -28,15 +28,6 @@ namespace Sungaila.SurvivalNotRequired.Patches
             if (operational?.IsOperational != true)
                 return;
 
-            // generate power
-            if (ModSettings.Instance.EnablePower && smi.master.TryGetComponent<Generator>(out var generator))
-            {
-                generator.EnergySim200ms(dt);
-                KSelectable component = smi.master.GetComponent<KSelectable>();
-                generator.GenerateJoules(generator.WattageRating * dt);
-                component.SetStatusItem(Db.Get().StatusItemCategories.Power, Db.Get().BuildingStatusItems.Wattage, generator);
-            }
-
             // get element converter and storage
             if (!smi.master.TryGetComponent<ElementConverter>(out var elementConverter))
                 return;

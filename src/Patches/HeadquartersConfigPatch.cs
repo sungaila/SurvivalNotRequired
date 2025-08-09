@@ -27,7 +27,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
             if (ModSettings.Instance.EnablePower)
             {
                 buildingDef.GeneratorWattageRating = ModSettings.Instance.WattageRating;
-                buildingDef.GeneratorBaseCapacity = 20000f;
+                buildingDef.GeneratorBaseCapacity = buildingDef.GeneratorWattageRating;
                 buildingDef.RequiresPowerOutput = true;
                 buildingDef.PowerOutputOffset = powerOutputOffset;
                 buildingDef.SelfHeatKilowattsWhenActive = ModSettings.Instance.SelfHeatKilowattsWhenActive;
@@ -62,8 +62,9 @@ namespace Sungaila.SurvivalNotRequired.Patches
         {
             if (ModSettings.Instance.EnablePower)
             {
-                Generator generator = go.AddComponent<Generator>();
+                DevGenerator generator = go.AddComponent<DevGenerator>();
                 generator.powerDistributionOrder = 10;
+                generator.wattageRating = ModSettings.Instance.WattageRating;
             }
 
             if (!ModSettings.Instance.EnableGas && !ModSettings.Instance.EnableLiquid)
