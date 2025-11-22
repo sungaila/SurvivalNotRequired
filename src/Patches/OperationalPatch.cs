@@ -1,13 +1,16 @@
 ﻿using HarmonyLib;
+using MonoMod.Utils;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using static Operational;
 
 namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Keep the headquarters operational even if oxygen, water and power generation are not.
     /// </summary>
-    [HarmonyPatch(typeof(Operational), "UpdateOperational")]
+    [HarmonyPatch(typeof(Operational))]
     public static class OperationalPatch
     {
         private static readonly string[] _instanceNameWhitelist =
@@ -21,53 +24,47 @@ namespace Sungaila.SurvivalNotRequired.Patches
             "pipesHaveRoom",
             "output_connected",
             "output_conduit",
-            "GeneratorConnected"
+            "GeneratorConnected",
+            "generatorWireConnected"
         ];
 
         /// <summary>
-        /// The property <see cref="Operational.IsOperational"/> found via reflection. This way we can access the private setter.
+        /// A stub for the original method UpdateOperational to be used in a reverse patch.
         /// </summary>
-        private static readonly PropertyInfo _isOperationalPropertyInfo = typeof(Operational).GetProperty(nameof(Operational.IsOperational));
+        [HarmonyPatch(typeof(Operational), "UpdateOperational")]
+        [HarmonyReversePatch]
+        public static void UpdateOperational(Operational __instance) => throw new NotImplementedException("This is a stub that will be overwritten by Harmony.");
 
-        public static bool Prefix(Operational __instance)
+        [HarmonyPatch(typeof(Operational), "UpdateOperational")]
+        [HarmonyPrefix]
+        public static bool UpdateOperationalPrefix(Operational __instance)
         {
             // ignore every Operational except for Printing Pod and Mini-Pod
+            // the rest will execute the original method instead
             if (!_instanceNameWhitelist.Contains(__instance.name))
                 return true;
 
-            // recreate the method UpdateOperational plus a blacklist for ignored flags
-            // I'd rather call the original method but for that Operational.Flags.GetEnumerator() would need patching
-            // and that is too expensive I fear
-            bool newOperationalValue = true;
+            // remember original flag states
+            var flagsBackup = new Dictionary<Flag, bool>();
+            flagsBackup.AddRange(__instance.Flags);
 
-            foreach (var flag in __instance.Flags)
+            // temporarily set blacklisted flags to true
+            foreach (var flag in __instance.Flags.Keys.ToArray())
             {
-                if (_isOperationalBlacklist.Contains(flag.Key.Name))
-                    continue;
-
-                if (!flag.Value)
-                {
-                    newOperationalValue = false;
-                    break;
-                }
+                if (_isOperationalBlacklist.Contains(flag.Name))
+                    __instance.Flags[flag] = true;
             }
 
-            if (newOperationalValue == __instance.IsOperational)
-                return false;
+            // execute original method with modified flags
+            UpdateOperational(__instance);
 
-            _isOperationalPropertyInfo.SetValue(__instance, newOperationalValue);
+            // restore original flag states
+            foreach (var item in flagsBackup)
+            {
+                __instance.Flags[item.Key] = item.Value;
+            }
 
-            if (!__instance.IsOperational)
-                __instance.SetActive(false);
-
-            if (__instance.IsOperational)
-                __instance.GetComponent<KPrefabID>().AddTag(GameTags.Operational);
-            else
-                __instance.GetComponent<KPrefabID>().RemoveTag(GameTags.Operational);
-
-            __instance.Trigger((int)GameHashes.OperationalChanged, __instance.IsOperational);
-            Game.Instance.Trigger((int)GameHashes.BuildingStateChanged, __instance.gameObject);
-
+            // make sure that the original method is not called again
             return false;
         }
     }

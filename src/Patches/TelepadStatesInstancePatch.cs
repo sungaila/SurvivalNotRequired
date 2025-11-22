@@ -8,10 +8,12 @@ namespace Sungaila.SurvivalNotRequired.Patches
     /// <summary>
     /// Dispense oxygen, water and provide some power. 
     /// </summary>
-    [HarmonyPatch(typeof(Telepad.States), nameof(Telepad.States.InitializeStates))]
+    [HarmonyPatch(typeof(Telepad.States))]
     public static class TelepadStatesInstancePatch
     {
-        public static void Postfix(Telepad.States __instance, BaseState default_state)
+        [HarmonyPatch(typeof(Telepad.States), nameof(Telepad.States.InitializeStates))]
+        [HarmonyPostfix]
+        public static void InitializeStatesPostfix(Telepad.States __instance, BaseState default_state)
         {
             // do additional stuff whenever the telepad is intact
             __instance.opening.Update(DoAdditionalStuffHandler, UpdateRate.SIM_200ms);

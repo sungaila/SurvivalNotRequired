@@ -1,73 +1,72 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <!-- Assembly -->
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Configurations>Debug;Release;ReleaseSigned</Configurations>
-    <AssemblyName>SurvivalNotRequired</AssemblyName>
-    <RootNamespace>Sungaila.SurvivalNotRequired</RootNamespace>
-    <DebugType>none</DebugType>
-    <Version>1.2.3</Version>
-  </PropertyGroup>
+	<!-- Assembly -->
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Configurations>Debug;Release;ReleaseSigned</Configurations>
+		<AssemblyName>SurvivalNotRequired</AssemblyName>
+		<RootNamespace>Sungaila.SurvivalNotRequired</RootNamespace>
+		<DebugType>none</DebugType>
+		<Version>1.2.4</Version>
+	</PropertyGroup>
 
-  <!-- C# compiler -->
-  <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <Features>strict</Features>
-    <WarningsAsErrors>nullable</WarningsAsErrors>
-    <NoWarn>IDE0060;MSB3277</NoWarn>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-  </PropertyGroup>
+	<!-- C# compiler -->
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<Features>strict</Features>
+		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<NoWarn>IDE0060;MSB3277</NoWarn>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
 
-  <!-- Release builds -->
-  <PropertyGroup Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='ReleaseSigned'">
-    <Optimize>true</Optimize>
-    <Deterministic>true</Deterministic>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
+	<!-- Release builds -->
+	<PropertyGroup Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='ReleaseSigned'">
+		<Optimize>true</Optimize>
+		<Deterministic>true</Deterministic>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="archived_versions\**\*.*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="settings.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mod.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mod_info.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="archived_versions\**\*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="settings.yaml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="mod.yaml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="mod_info.yaml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <!-- SourceLink build steps and NuGet packages -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
-  </ItemGroup>
+	<!-- SourceLink build steps and NuGet packages -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
+	</ItemGroup>
 
-  <!-- References to the Oxygen Not Included assemblies -->
-  <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
+	<!-- References to the Oxygen Not Included assemblies -->
+	<ItemGroup>
+		<Reference Include="0Harmony">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
 
-  <Import Project="SurvivalNotRequired.PropertiesSigning.targets" />
-  <Import Project="SurvivalNotRequired.CodeSigning.targets" />
-
+	<Import Project="SurvivalNotRequired.PropertiesSigning.targets" />
+	<Import Project="SurvivalNotRequired.CodeSigning.targets" />
 </Project>

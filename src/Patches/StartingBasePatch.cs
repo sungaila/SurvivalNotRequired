@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using TemplateClasses;
 using UnityEngine;
+using static ProcGenGame.TemplateSpawning;
 
 namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Adds a gas vent and a floor lamp to the starting base.
     /// </summary>
-    [HarmonyPatch(typeof(TemplateSpawning), nameof(TemplateSpawning.DetermineTemplatesForWorld))]
+    [HarmonyPatch(typeof(TemplateSpawning))]
     public static class StartingBasePatch
     {
         private static readonly List<string> _templatesPatched = [];
@@ -19,7 +20,9 @@ namespace Sungaila.SurvivalNotRequired.Patches
         /// <summary>
         /// Postfix for <see cref="TemplateSpawning.DetermineTemplatesForWorld"/>.
         /// </summary>
-        public static void Postfix(WorldGenSettings settings, List<TerrainCell> terrainCells, SeededRandom myRandom, ref List<RectInt> placedPOIBounds, bool isRunningDebugGen, ref List<WorldTrait> placedStoryTraits, WorldGen.OfflineCallbackFunction successCallbackFn, ref List<TemplateSpawning.TemplateSpawner> __result)
+        [HarmonyPatch(typeof(TemplateSpawning), nameof(TemplateSpawning.DetermineTemplatesForWorld))]
+        [HarmonyPostfix]
+        public static void DetermineTemplatesForWorldPostfix(WorldGenSettings settings, List<TerrainCell> terrainCells, SeededRandom myRandom, ref List<RectInt> placedPOIBounds, bool isRunningDebugGen, ref List<WorldTrait> placedStoryTraits, WorldGen.OfflineCallbackFunction successCallbackFn, ref List<TemplateSpawner> __result)
         {
             // if nothing is enabled then skip patching the templates
             if (!ModSettings.Instance.EnableTemplateGasVent && !ModSettings.Instance.EnableTemplateFloorLamp && !ModSettings.Instance.EnableTemplateLiquidValve)
