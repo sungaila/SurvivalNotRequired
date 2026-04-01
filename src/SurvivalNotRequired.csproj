@@ -6,7 +6,7 @@
 		<AssemblyName>SurvivalNotRequired</AssemblyName>
 		<RootNamespace>Sungaila.SurvivalNotRequired</RootNamespace>
 		<DebugType>none</DebugType>
-		<Version>1.2.4</Version>
+		<Version>1.2.5</Version>
 	</PropertyGroup>
 
 	<!-- C# compiler -->

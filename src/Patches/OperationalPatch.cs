@@ -45,8 +45,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
                 return true;
 
             // remember original flag states
-            var flagsBackup = new Dictionary<Flag, bool>();
-            flagsBackup.AddRange(__instance.Flags);
+            var flagsBackup = new Dictionary<Flag, bool>(__instance.Flags);
 
             // temporarily set blacklisted flags to true
             foreach (var flag in __instance.Flags.Keys.ToArray())
