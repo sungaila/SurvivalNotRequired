@@ -5,7 +5,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
 {
     /// <summary>
     /// Modifies the exobaseheadquarters building definition.
-    /// But only if <see cref="TelepadStatesInstancePatch.ExtendMiniPod"/> is set.
+    /// But only if <see cref="ModSettings.ExtendMiniPod"/> is set.
     /// </summary>
     [HarmonyPatch(typeof(ExobaseHeadquartersConfig))]
     public static class ExobaseHeadquartersConfigPatch

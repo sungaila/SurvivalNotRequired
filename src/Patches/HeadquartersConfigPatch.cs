@@ -41,7 +41,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
                 GeneratedBuildings.RegisterWithOverlay(OverlayScreen.GasVentIDs, configId);
             }
 
-            // a gas output at the bottom right corner
+            // a liquid output at the bottom right corner
             if (ModSettings.Instance.EnableLiquid)
             {
                 GeneratedBuildings.RegisterWithOverlay(OverlayScreen.LiquidVentIDs, configId);

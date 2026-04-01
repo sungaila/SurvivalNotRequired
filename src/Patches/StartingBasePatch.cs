@@ -50,7 +50,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
                 {
                     // make sure that the templates won't be patched twice
                     if (_templatesPatched.Contains(templateContainer.name))
-                        return;
+                        continue;
 
                     // make sure there is a single headquarter in the template
                     if (templateContainer.buildings.FirstOrDefault(b => b.id == HeadquartersConfig.ID) is not Prefab headquarters)

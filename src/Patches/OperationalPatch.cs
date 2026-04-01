@@ -13,13 +13,13 @@ namespace Sungaila.SurvivalNotRequired.Patches
     [HarmonyPatch(typeof(Operational))]
     public static class OperationalPatch
     {
-        private static readonly string[] _instanceNameWhitelist =
+        private static readonly HashSet<string> _instanceNameWhitelist =
         [
             "HeadquartersComplete",
             "ExobaseHeadquartersComplete"
         ];
 
-        private static readonly string[] _isOperationalBlacklist =
+        private static readonly HashSet<string> _isOperationalBlacklist =
         [
             "pipesHaveRoom",
             "output_connected",
@@ -54,13 +54,18 @@ namespace Sungaila.SurvivalNotRequired.Patches
                     __instance.Flags[flag] = true;
             }
 
-            // execute original method with modified flags
-            UpdateOperational(__instance);
-
-            // restore original flag states
-            foreach (var item in flagsBackup)
+            try
             {
-                __instance.Flags[item.Key] = item.Value;
+                // execute original method with modified flags
+                UpdateOperational(__instance);
+            }
+            finally
+            {
+                // restore original flag states
+                foreach (var item in flagsBackup)
+                {
+                    __instance.Flags[item.Key] = item.Value;
+                }
             }
 
             // make sure that the original method is not called again
