@@ -54,6 +54,11 @@ jobs:
             throw 'Set the STEAM_USERNAME repository secret to the Steam account login name.'
           }
 
+          foreach ($value in @($env:STEAM_USERNAME, $env:STEAM_CONFIG_VDF)) {
+            $escapedValue = $value.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Output "::add-mask::$escapedValue"
+          }
+
           $runnerTemp = (Resolve-Path -LiteralPath $env:RUNNER_TEMP).ProviderPath
           $steamCmdDir = Join-Path $runnerTemp 'steamcmd'
           $gameDir = Join-Path $runnerTemp 'OxygenNotIncluded'
@@ -74,8 +79,20 @@ jobs:
               '+app_update', '457140'
               '+quit'
             )
-            # SteamCMD output can contain values GitHub cannot mask from a multiline secret.
-            & .\steamcmd.exe @steamCmdArgs *> $null
+            # Only log known statuses and progress. Raw output can contain account data.
+            $PSNativeCommandUseErrorActionPreference = $false
+            & .\steamcmd.exe @steamCmdArgs 2>&1 | ForEach-Object {
+              $line = ([string]$_).Trim()
+              if ($line -cmatch '^Update state \(0x[0-9a-fA-F]+\) (?<stage>preallocating|reconfiguring|downloading|verifying update|validating|committing|staging), progress: (?<percent>[0-9]{1,3}(?:[.,][0-9]{1,2})?) \([0-9]+ / [0-9]+\)$') {
+                Write-Output "SteamCMD $($Matches.stage) $($Matches.percent)%."
+              }
+              elseif ($line -match '^(?:Logging in user .*?FAILED|FAILED|ERROR)\s*\((?:Invalid Password|License expired|Account Logon Denied|Account Login Denied Failed)\)\.?$') {
+                Write-Output 'SteamCMD rejected the saved login.'
+              }
+              elseif ($line -match '^ERROR! Failed to install app ''457140'' \(No subscription\)\.?$') {
+                Write-Output 'SteamCMD reported that the account has no license for Oxygen Not Included.'
+              }
+            }
             if ($LASTEXITCODE -ne 0) {
               throw "SteamCMD failed with exit code $LASTEXITCODE. Verify that the saved login still works and that the account owns Oxygen Not Included."
             }
@@ -93,6 +110,7 @@ jobs:
           if (-not (Test-Path -LiteralPath (Join-Path $managedDir 'Assembly-CSharp.dll') -PathType Leaf)) {
             throw 'SteamCMD did not install the expected Oxygen Not Included assemblies.'
           }
+          Write-Output 'Oxygen Not Included was installed and its game assemblies are available.'
           "ONI_MANAGED_PATH=$managedDir" >> $env:GITHUB_ENV
 
       - uses: actions/checkout@v7
