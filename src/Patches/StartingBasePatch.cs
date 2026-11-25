@@ -4,7 +4,6 @@ using ProcGenGame;
 using System.Collections.Generic;
 using System.Linq;
 using TemplateClasses;
-using UnityEngine;
 using static ProcGenGame.TemplateSpawning;
 
 namespace Sungaila.SurvivalNotRequired.Patches
@@ -22,7 +21,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
         /// </summary>
         [HarmonyPatch(typeof(TemplateSpawning), nameof(TemplateSpawning.DetermineTemplatesForWorld))]
         [HarmonyPostfix]
-        public static void DetermineTemplatesForWorldPostfix(WorldGenSettings settings, List<TerrainCell> terrainCells, SeededRandom myRandom, ref List<RectInt> placedPOIBounds, bool isRunningDebugGen, ref List<WorldTrait> placedStoryTraits, WorldGen.OfflineCallbackFunction successCallbackFn, ref List<TemplateSpawner> __result)
+        public static void DetermineTemplatesForWorldPostfix(WorldGenSettings settings, List<TemplateSpawner> __result)
         {
             // if nothing is enabled then skip patching the templates
             if (!ModSettings.Instance.EnableTemplateGasVent && !ModSettings.Instance.EnableTemplateFloorLamp && !ModSettings.Instance.EnableTemplateLiquidValve)
@@ -59,54 +58,48 @@ namespace Sungaila.SurvivalNotRequired.Patches
                     // a gas vent to the left connected with gas pipes
                     if (ModSettings.Instance.EnableTemplateGasVent)
                     {
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             GasConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x - 1,
                             headquarters.location_y,
                             SimHashes.SedimentaryRock,
                             headquarters.temperature,
-                            _connections: (int)UtilityConnections.Up));
+                            UtilityConnections.Up));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             GasConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x - 1,
                             headquarters.location_y + 1,
                             SimHashes.SedimentaryRock,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Up | UtilityConnections.Down)));
+                            UtilityConnections.Up | UtilityConnections.Down));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             GasConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x - 1,
                             headquarters.location_y + 2,
                             SimHashes.SedimentaryRock,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Up | UtilityConnections.Down)));
+                            UtilityConnections.Up | UtilityConnections.Down));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             GasConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x - 1,
                             headquarters.location_y + 3,
                             SimHashes.SedimentaryRock,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Left | UtilityConnections.Down)));
+                            UtilityConnections.Left | UtilityConnections.Down));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             GasConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x - 2,
                             headquarters.location_y + 3,
                             SimHashes.SedimentaryRock,
                             headquarters.temperature,
-                            _connections: (int)UtilityConnections.Right));
+                            UtilityConnections.Right));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             GasVentConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x - 2,
                             headquarters.location_y + 3,
                             SimHashes.IronOre,
@@ -120,45 +113,40 @@ namespace Sungaila.SurvivalNotRequired.Patches
                     // a floor lamp to the right connected with wires
                     if (ModSettings.Instance.EnableTemplateFloorLamp)
                     {
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             WireConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 2,
                             headquarters.location_y,
                             SimHashes.IronOre,
                             headquarters.temperature,
-                            _connections: (int)UtilityConnections.Down));
+                            UtilityConnections.Down));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             WireConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 2,
                             headquarters.location_y - 1,
                             SimHashes.IronOre,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Up | UtilityConnections.Right)));
+                            UtilityConnections.Up | UtilityConnections.Right));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             WireConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 3,
                             headquarters.location_y - 1,
                             SimHashes.IronOre,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Left | UtilityConnections.Up)));
+                            UtilityConnections.Left | UtilityConnections.Up));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             WireConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 3,
                             headquarters.location_y,
                             SimHashes.IronOre,
                             headquarters.temperature,
-                            _connections: (int)UtilityConnections.Down));
+                            UtilityConnections.Down));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             FloorLampConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 3,
                             headquarters.location_y,
                             SimHashes.IronOre,
@@ -168,54 +156,48 @@ namespace Sungaila.SurvivalNotRequired.Patches
                     // a liquid valve to the right connected with pipes
                     if (ModSettings.Instance.EnableTemplateLiquidValve)
                     {
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             LiquidConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 2,
                             headquarters.location_y,
                             SimHashes.SandStone,
                             headquarters.temperature,
-                            _connections: (int)UtilityConnections.Down));
+                            UtilityConnections.Down));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             LiquidConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 2,
                             headquarters.location_y - 1,
                             SimHashes.SandStone,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Up | UtilityConnections.Right)));
+                            UtilityConnections.Up | UtilityConnections.Right));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             LiquidConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 3,
                             headquarters.location_y - 1,
                             SimHashes.SandStone,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Left | UtilityConnections.Right)));
+                            UtilityConnections.Left | UtilityConnections.Right));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             LiquidConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 4,
                             headquarters.location_y - 1,
                             SimHashes.SandStone,
                             headquarters.temperature,
-                            _connections: (int)(UtilityConnections.Left | UtilityConnections.Up)));
+                            UtilityConnections.Left | UtilityConnections.Up));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             LiquidConduitConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 4,
                             headquarters.location_y,
                             SimHashes.SandStone,
                             headquarters.temperature,
-                            _connections: (int)UtilityConnections.Down));
+                            UtilityConnections.Down));
 
-                        templateContainer.buildings.Add(new Prefab(
+                        templateContainer.buildings.Add(CreateBuildingPrefab(
                             LiquidValveConfig.ID,
-                            Prefab.Type.Building,
                             headquarters.location_x + 4,
                             headquarters.location_y,
                             SimHashes.IronOre,
@@ -227,6 +209,22 @@ namespace Sungaila.SurvivalNotRequired.Patches
                     _templatesPatched.Add(templateContainer.name);
                 }
             }
+        }
+
+        private static Prefab CreateBuildingPrefab(string id, int x, int y, SimHashes element, float temperature, UtilityConnections connections = default)
+        {
+            return new Prefab
+            {
+                id = id,
+                type = Prefab.Type.Building,
+                location_x = x,
+                location_y = y,
+                element = element,
+                temperature = temperature,
+                units = 1f,
+                rotationOrientation = Orientation.Neutral,
+                connections = (int)connections
+            };
         }
     }
 }

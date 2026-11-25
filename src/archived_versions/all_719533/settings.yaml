@@ -1,0 +1,44 @@
+# the dispensed oxygen temperature will be the minimum of the Printing Pod and this setting
+oxygenMinTemperatureInKelvin: 293.15
+
+# the dispensed water temperature will be the minimum of the Printing Pod and this setting
+waterMinTemperatureInKelvin: 293.15
+
+# how much oxygen is dispensed per second
+oxygenOutputInKgPerSecond: 0.5
+
+# how much water is dispensed per second
+waterOutputInKgPerSecond: 0.1
+
+# how much power is provided
+wattageRating: 400.0
+
+# the amount of dispensed heat when the Printing Pod is active (1.0 is equal to 1,000 DTU/s)
+selfHeatKilowattsWhenActive: 1.0
+
+# whether the Mini-Pod should be extended just like the Printing Pod
+extendMiniPod: true
+
+# the gas storage capacity (for oxygen) of the Printing Pod
+capacityGasInKg: 10.0
+
+# the liquid storage capacity (for water) of the Printing Pod
+capacityLiquidInKg: 10.0
+
+# if the Printing Pod is providing power
+enablePower: true
+
+# if the Printing Pod is providing oxygen
+enableGas: true
+
+# if the Printing Pod is providing water
+enableLiquid: true
+
+# if a gas vent with gas pipes should be placed left to the Printing Pod (only for starting new games)
+enableTemplateGasVent: true
+
+# if a floor lamp with wires should be placed right to the Printing Pod (only for starting new games)
+enableTemplateFloorLamp: true
+
+# if a liquid valve with pipes should be placed right to the Printing Pod (only for starting new games)
+enableTemplateLiquidValve: true

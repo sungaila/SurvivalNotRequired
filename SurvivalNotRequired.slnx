@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <BuildType Name="ReleaseSigned" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="etc/SteamDescription_de-DE.txt" />
+    <File Path="etc/SteamDescription_en-US.txt" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="src/SurvivalNotRequired.csproj" />
+</Solution>

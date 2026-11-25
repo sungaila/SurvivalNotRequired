@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using System.Linq;
 using UnityEngine;
-using static StateMachine;
 
 namespace Sungaila.SurvivalNotRequired.Patches
 {
@@ -13,7 +12,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
     {
         [HarmonyPatch(typeof(Telepad.States), nameof(Telepad.States.InitializeStates))]
         [HarmonyPostfix]
-        public static void InitializeStatesPostfix(Telepad.States __instance, BaseState default_state)
+        public static void InitializeStatesPostfix(Telepad.States __instance)
         {
             // do additional stuff whenever the telepad is intact
             __instance.opening.Update(DoAdditionalStuffHandler, UpdateRate.SIM_200ms);
