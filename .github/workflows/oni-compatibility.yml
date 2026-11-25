@@ -1,0 +1,103 @@
+name: Build against latest Oxygen Not Included
+
+on:
+  schedule:
+    - cron: '23 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency: oni-compatibility
+
+jobs:
+  build:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Download and initialize SteamCMD
+        shell: pwsh
+        run: |
+          $steamCmdDir = Join-Path $env:RUNNER_TEMP 'steamcmd'
+          $archive = Join-Path $env:RUNNER_TEMP 'steamcmd.zip'
+          Invoke-WebRequest -Uri 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip' -OutFile $archive
+          Expand-Archive -LiteralPath $archive -DestinationPath $steamCmdDir
+
+          $steamCmdExe = Join-Path $steamCmdDir 'steamcmd.exe'
+          for ($attempt = 1; $attempt -le 3; $attempt++) {
+            $process = Start-Process -FilePath $steamCmdExe -ArgumentList '+quit' -WorkingDirectory $steamCmdDir -NoNewWindow -Wait -PassThru
+            if ($process.ExitCode -eq 0) {
+              break
+            }
+            if ($process.ExitCode -ne 7 -or $attempt -eq 3) {
+              throw "SteamCMD initialization failed with exit code $($process.ExitCode)."
+            }
+            Write-Output 'Retrying SteamCMD initialization after exit code 7.'
+          }
+
+      - name: Download Oxygen Not Included
+        shell: pwsh
+        env:
+          STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
+          STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:STEAM_CONFIG_VDF)) {
+            throw 'Set the STEAM_CONFIG_VDF repository secret to the full contents of SteamCMD config/config.vdf.'
+          }
+          if ([string]::IsNullOrWhiteSpace($env:STEAM_USERNAME)) {
+            throw 'Set the STEAM_USERNAME repository secret to the Steam account login name.'
+          }
+
+          $runnerTemp = (Resolve-Path -LiteralPath $env:RUNNER_TEMP).ProviderPath
+          $steamCmdDir = Join-Path $runnerTemp 'steamcmd'
+          $gameDir = Join-Path $runnerTemp 'OxygenNotIncluded'
+          $configDir = Join-Path $steamCmdDir 'config'
+          $configFile = Join-Path $configDir 'config.vdf'
+          New-Item -ItemType Directory -Path $configDir -Force | Out-Null
+
+          Push-Location -LiteralPath $steamCmdDir
+          try {
+            [IO.File]::WriteAllText($configFile, $env:STEAM_CONFIG_VDF)
+            Remove-Item Env:STEAM_CONFIG_VDF
+
+            $steamCmdArgs = @(
+              '+@ShutdownOnFailedCommand', '1'
+              '+@NoPromptForPassword', '1'
+              '+force_install_dir', $gameDir
+              '+login', $env:STEAM_USERNAME
+              '+app_update', '457140'
+              '+quit'
+            )
+            # SteamCMD output can contain values GitHub cannot mask from a multiline secret.
+            & .\steamcmd.exe @steamCmdArgs *> $null
+            if ($LASTEXITCODE -ne 0) {
+              throw "SteamCMD failed with exit code $LASTEXITCODE. Verify that the saved login still works and that the account owns Oxygen Not Included."
+            }
+          }
+          finally {
+            Pop-Location
+            $resolvedSteamCmdDir = (Resolve-Path -LiteralPath $steamCmdDir).ProviderPath
+            if ($resolvedSteamCmdDir -ne $steamCmdDir) {
+              throw 'The SteamCMD directory resolved outside its expected location.'
+            }
+            Remove-Item -LiteralPath $resolvedSteamCmdDir -Recurse -Force
+          }
+
+          $managedDir = Join-Path $gameDir 'OxygenNotIncluded_Data\Managed'
+          if (-not (Test-Path -LiteralPath (Join-Path $managedDir 'Assembly-CSharp.dll') -PathType Leaf)) {
+            throw 'SteamCMD did not install the expected Oxygen Not Included assemblies.'
+          }
+          "ONI_MANAGED_PATH=$managedDir" >> $env:GITHUB_ENV
+
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '11.x'
+
+      - name: Build against the downloaded assemblies
+        shell: pwsh
+        run: dotnet build src/SurvivalNotRequired.csproj -c Release "-p:OniManagedPath=$env:ONI_MANAGED_PATH"

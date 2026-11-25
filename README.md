@@ -9,7 +9,11 @@ _Survival Not Required_ is a mod for the game [Oxygen Not Included](https://www.
 The mod is available in the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2840201171).
 
 ## Compilation
-A copy of the game is needed to compile this project. You might need to modify [SurvivalNotRequired.csproj](https://github.com/sungaila/SurvivalNotRequired/blob/master/src/SurvivalNotRequired.csproj) for the correct location of the required game assembly files.
+A copy of the game is needed to compile this project. If your Steam library is in a different location, pass the game's `OxygenNotIncluded_Data\Managed` directory to MSBuild.
+
+```powershell
+dotnet build src/SurvivalNotRequired.csproj -c Release -p:OniManagedPath="C:\Path\To\OxygenNotIncluded\OxygenNotIncluded_Data\Managed"
+```
 
 ## License
 This project is licensed under the [MIT License](https://github.com/sungaila/SurvivalNotRequired/blob/master/LICENSE). Please do not release a mod with the same or similiar name. Also please follow [Klei's Player Creation Guidelines](https://support.klei.com/hc/en-us/articles/360029880791-Player-Creation-Guidelines).
