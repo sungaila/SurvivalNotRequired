@@ -12,10 +12,13 @@ namespace Sungaila.SurvivalNotRequired.Patches
     [HarmonyPatch(typeof(Operational))]
     public static class OperationalPatch
     {
+        // Harmony resolves the private game method by name.
+        private const string UpdateOperationalMethodName = "UpdateOperational";
+
         private static readonly HashSet<string> _instanceNameWhitelist =
         [
-            "HeadquartersComplete",
-            "ExobaseHeadquartersComplete"
+            HeadquartersConfig.ID + "Complete",
+            ExobaseHeadquartersConfig.ID + "Complete"
         ];
 
         private static readonly HashSet<string> _isOperationalBlacklist =
@@ -23,18 +26,18 @@ namespace Sungaila.SurvivalNotRequired.Patches
             "pipesHaveRoom",
             "output_connected",
             "output_conduit",
-            "GeneratorConnected",
+            Generator.generatorConnectedFlag.Name,
             "generatorWireConnected"
         ];
 
         /// <summary>
         /// A stub for the original method UpdateOperational to be used in a reverse patch.
         /// </summary>
-        [HarmonyPatch(typeof(Operational), "UpdateOperational")]
+        [HarmonyPatch(typeof(Operational), UpdateOperationalMethodName, [])]
         [HarmonyReversePatch]
         public static void UpdateOperational(Operational __instance) => throw new NotImplementedException("This is a stub that will be overwritten by Harmony.");
 
-        [HarmonyPatch(typeof(Operational), "UpdateOperational")]
+        [HarmonyPatch(typeof(Operational), UpdateOperationalMethodName, [])]
         [HarmonyPrefix]
         public static bool UpdateOperationalPrefix(Operational __instance)
         {

@@ -13,7 +13,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
         /// <summary>
         /// Postfix for <see cref="ExobaseHeadquartersConfig.CreateBuildingDef"/>.
         /// </summary>
-        [HarmonyPatch(typeof(ExobaseHeadquartersConfig), nameof(ExobaseHeadquartersConfig.CreateBuildingDef))]
+        [HarmonyPatch(typeof(ExobaseHeadquartersConfig), nameof(ExobaseHeadquartersConfig.CreateBuildingDef), [])]
         [HarmonyPostfix]
         public static void CreateBuildingDefPostfix(ref BuildingDef __result)
         {
@@ -26,9 +26,9 @@ namespace Sungaila.SurvivalNotRequired.Patches
         /// <summary>
         /// Postfix for <see cref="ExobaseHeadquartersConfig.ConfigureBuildingTemplate"/>.
         /// </summary>
-        [HarmonyPatch(typeof(ExobaseHeadquartersConfig), nameof(ExobaseHeadquartersConfig.ConfigureBuildingTemplate))]
+        [HarmonyPatch(typeof(ExobaseHeadquartersConfig), nameof(ExobaseHeadquartersConfig.ConfigureBuildingTemplate), typeof(GameObject), typeof(Tag))]
         [HarmonyPostfix]
-        public static void ConfigureBuildingTemplatePostfix(GameObject go, Tag prefab_tag)
+        public static void ConfigureBuildingTemplatePostfix(GameObject go)
         {
             if (!ModSettings.Instance.ExtendMiniPod)
                 return;

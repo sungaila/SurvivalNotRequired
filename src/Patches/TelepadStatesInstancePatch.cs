@@ -10,7 +10,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
     [HarmonyPatch(typeof(Telepad.States))]
     public static class TelepadStatesInstancePatch
     {
-        [HarmonyPatch(typeof(Telepad.States), nameof(Telepad.States.InitializeStates))]
+        [HarmonyPatch(typeof(Telepad.States), nameof(Telepad.States.InitializeStates), [typeof(StateMachine.BaseState)], [ArgumentType.Ref])]
         [HarmonyPostfix]
         public static void InitializeStatesPostfix(Telepad.States __instance)
         {

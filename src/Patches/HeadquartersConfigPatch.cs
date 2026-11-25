@@ -14,7 +14,7 @@ namespace Sungaila.SurvivalNotRequired.Patches
         /// <summary>
         /// Postfix for <see cref="HeadquartersConfig.CreateBuildingDef"/>.
         /// </summary>
-        [HarmonyPatch(typeof(HeadquartersConfig), nameof(HeadquartersConfig.CreateBuildingDef))]
+        [HarmonyPatch(typeof(HeadquartersConfig), nameof(HeadquartersConfig.CreateBuildingDef), [])]
         [HarmonyPostfix]
         public static void CreateBuildingDefPostfix(ref BuildingDef __result)
         {
@@ -51,9 +51,9 @@ namespace Sungaila.SurvivalNotRequired.Patches
         /// <summary>
         /// Postfix for <see cref="HeadquartersConfig.ConfigureBuildingTemplate"/>.
         /// </summary>
-        [HarmonyPatch(typeof(HeadquartersConfig), nameof(HeadquartersConfig.ConfigureBuildingTemplate))]
+        [HarmonyPatch(typeof(HeadquartersConfig), nameof(HeadquartersConfig.ConfigureBuildingTemplate), typeof(GameObject), typeof(Tag))]
         [HarmonyPostfix]
-        public static void ConfigureBuildingTemplatePostfix(GameObject go, Tag prefab_tag)
+        public static void ConfigureBuildingTemplatePostfix(GameObject go)
         {
             ModifyBuildingTemplate(ref go, new CellOffset(-1, 0), new CellOffset(2, 0));
         }

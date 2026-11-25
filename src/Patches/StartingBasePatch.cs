@@ -19,7 +19,25 @@ namespace Sungaila.SurvivalNotRequired.Patches
         /// <summary>
         /// Postfix for <see cref="TemplateSpawning.DetermineTemplatesForWorld"/>.
         /// </summary>
-        [HarmonyPatch(typeof(TemplateSpawning), nameof(TemplateSpawning.DetermineTemplatesForWorld))]
+        [HarmonyPatch(typeof(TemplateSpawning), nameof(TemplateSpawning.DetermineTemplatesForWorld),
+            [
+                typeof(WorldGenSettings),
+                typeof(List<TerrainCell>),
+                typeof(SeededRandom),
+                typeof(List<UnityEngine.RectInt>),
+                typeof(bool),
+                typeof(List<WorldTrait>),
+                typeof(WorldGen.OfflineCallbackFunction)
+            ],
+            [
+                ArgumentType.Normal,
+                ArgumentType.Normal,
+                ArgumentType.Normal,
+                ArgumentType.Ref,
+                ArgumentType.Normal,
+                ArgumentType.Ref,
+                ArgumentType.Normal
+            ])]
         [HarmonyPostfix]
         public static void DetermineTemplatesForWorldPostfix(WorldGenSettings settings, List<TemplateSpawner> __result)
         {

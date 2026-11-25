@@ -1,6 +1,9 @@
 name: Build against latest Oxygen Not Included
 
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: '23 3 * * 1'
   workflow_dispatch:
@@ -8,7 +11,9 @@ on:
 permissions:
   contents: read
 
-concurrency: oni-compatibility
+concurrency:
+  group: oni-compatibility
+  queue: max
 
 jobs:
   build:
@@ -101,3 +106,7 @@ jobs:
       - name: Build against the downloaded assemblies
         shell: pwsh
         run: dotnet build src/SurvivalNotRequired.csproj -c Release "-p:OniManagedPath=$env:ONI_MANAGED_PATH"
+
+      - name: Verify Harmony patch signatures
+        shell: pwsh
+        run: dotnet run --file tools/VerifyHarmonyPatches.cs -- "$env:ONI_MANAGED_PATH" src/bin/Release/netstandard2.1/SurvivalNotRequired.dll
